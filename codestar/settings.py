@@ -34,7 +34,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-obione84-djangowalkthro-qyxpz5n8x52.ws-eu105.gitpod.io',
-    'https://django-blog-practice-ff727ffc4732.herokuapp.com/'
+    'django-blog-practice-ff727ffc4732.herokuapp.com'
     ]
 
 
