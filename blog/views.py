@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views import generic
+from django.shortcuts import render, get_object_or_404
+from django.views import generic, View
 from .models import Post
 
 
@@ -8,3 +8,37 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 6
+
+
+class PostDetail(View):
+
+    def get(self, request, slug, *arg, **kwargs):
+        # below, we filer arguments by status 1 = published
+        queryset = Post.objects.filter(status=1)
+        # here we get published post with the correct slug
+        post = get_object_or_404(queryset, slug=slug)
+        # below we get any comments that are attached to the post and
+        # are approved, filter and order in asceding order
+        comments = post.comments.filter(approved=True).order_by('created_on')
+        # we set liked to false
+        liked = False
+        # we use the if statement to check if used id is acutally there
+        # to say that they've liked the post, if they are we set liked to true
+        # otherwise it will remain false
+        if post.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        # we send all this information to our redner method
+        # we are going to send request through
+        # next we supply the template post_detail.html
+        # and we will create dictionary to supply our context, so our post
+        # will be post, our comments key will be the comments we got back
+        # and liked will be our liked boolean
+        return render(
+            request,
+            'post_detail.html',
+            {
+                'post': post,
+                'comments': comments,
+                'liked': liked
+            },
+        )
