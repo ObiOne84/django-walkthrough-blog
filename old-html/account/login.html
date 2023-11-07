@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+<!-- change to base.html -->
+{% load i18n %}
+{% load allauth account socialaccount %}
+{% block head_title %}
+{% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+
+            <!-- {% element h2 %} -->
+            <h3>
+                {% trans "Sign In" %}
+            </h3>
+            <!-- {% endelement %} -->
+            <p>
+                {% blocktrans %}Welcome back to the code|star blog. To leave a comment or like a post, please an account
+                yet, then please log in. If you have not created an account yer, then
+                <a class="link" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 mt-3 offset-md-2">
+
+            {% url 'account_login' as login_url %}
+            {% element form form=form method="post" class="login" action=login_url tags="entrance,login" %}
+            {% slot body %}
+            {% csrf_token %}
+            {% element fields form=form unlabeled=True %}
+            {% endelement %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            {% endslot %}
+            {% slot actions %}
+            <button class="btn btn-signup right" type="submit">
+                <!-- {% element button type="submit" tags="prominent,login" %} -->
+                {% trans "Sign In" %}
+                <!-- {% endelement %} -->
+                {% endslot %}
+                {% endelement %}
+            </button>
+            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
