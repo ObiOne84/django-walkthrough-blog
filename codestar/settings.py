@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-obione84-djangowalkthro-qyxpz5n8x52.ws-eu105.gitpod.io',
+    '8000-obione84-djangowalkthro-qyxpz5n8x52.ws-eu106.gitpod.io',
     'django-blog-practice-ff727ffc4732.herokuapp.com'
     ]
 
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'django_summernote',
+    'crispy_forms',
     'blog',
 ]
 
@@ -62,6 +63,8 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
