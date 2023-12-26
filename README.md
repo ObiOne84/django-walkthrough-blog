@@ -108,3 +108,5 @@ Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` f
 ---
 
 Happy coding!
+
+### HERE IS MY PART OF THE CODE
